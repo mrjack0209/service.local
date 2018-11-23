@@ -18,9 +18,9 @@ Route::get('/', function () {
 
 
 //ADMIN
-Route::namespace('Admin')->group(function () {
-    Route::get('/admin', 'HomeController@showIndex');
-    Route::get('/admin/orders', 'OrderController@index')->name('orders');
-    Route::post('/admin/orders/create', 'OrderController@create')->name('orders.create');
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', 'HomeController@showIndex');
+    Route::resource('orders','OrderController');
 });
+
 
