@@ -1,0 +1,21 @@
+.step:last-child:before{
+	border: 0;
+}
+
+.step:last-child:after{
+	display: none;
+}
+
+.info-line{
+	font-size: 19px;
+}
+
+.item-text{
+	font-size: 15px;
+}
+
+@media (min-width: 992px) {
+    .menu-items {
+        font-size: 1.3em;
+    }
+ }
