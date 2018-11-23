@@ -69,7 +69,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Test
     }
 
     /**
