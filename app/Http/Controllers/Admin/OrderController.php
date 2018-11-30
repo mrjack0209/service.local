@@ -70,7 +70,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $categories = Category::all();
-        return view('admin.pages.orders.edit', compact('order', 'categories'));
+        $statuses = Status::all();
+        return view('admin.pages.orders.edit', compact('order', 'categories', 'statuses'));
     }
 
     /**
@@ -82,7 +83,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        $order = Order::find($id);
+        $order->update($request->all());
+        return redirect()->route('orders.index');
     }
 
     /**

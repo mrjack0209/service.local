@@ -1,7 +1,6 @@
 @extends('admin.layouts.admin')
 
 @section('content')
-    <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
                 <div class="col-sm-4 col-3">
@@ -111,38 +110,7 @@
                 </div>
             </div>
         </div>
-        <div class="notification-box">
-            <div class="msg-sidebar notifications msg-noti">
-                <div class="topnav-dropdown-header">
-                    <span>Messages</span>
-                </div>
-                <div class="drop-scroll msg-list-scroll">
-                    <ul class="list-box">
-                        <li>
-                            <a href="#">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">R</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Richard Miles </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span
-                                            class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
 
-                    </ul>
-                </div>
-                <div class="topnav-dropdown-footer">
-                    <a href="chat.html">See all messages</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="add_employee" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog">
             <button type="button" class="close" data-dismiss="modal">&times;</button>

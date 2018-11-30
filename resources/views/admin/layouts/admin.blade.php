@@ -9,24 +9,27 @@
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href={{asset('adm/css/admin.css')}}>
     <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
+    <script src="assets/js/html5shiv.min.js"></script>
+    <script src="assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
 <body>
-    <div class="main-wrapper">
+<div class="main-wrapper">
 
-        @include('admin.parts._header')
+    @include('admin.parts._header')
 
-        @include('admin.parts._sidebar')
+    @include('admin.parts._sidebar')
 
+    <div class="page-wrapper">
         @yield('content')
-
+        @include('admin.parts._notifications')
     </div>
-    <div class="sidebar-overlay" data-reff=""></div>
 
-    @include('admin.parts._scripts')
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+
+@include('admin.parts._scripts')
 </body>
 
 </html>
