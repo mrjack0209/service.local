@@ -71,7 +71,8 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $categories = Category::all();
         $statuses = Status::all();
-        return view('admin.pages.orders.edit', compact('order', 'categories', 'statuses'));
+        $customer = Customer::find($order->user_id);
+        return view('admin.pages.orders.edit', compact('customer','order', 'categories', 'statuses'));
     }
 
     /**
@@ -84,7 +85,21 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = Order::find($id);
+        $customer = Customer::where('name', $request['username'])
+                        ->where('phone', $request['phone'])
+                        ->first();
+
+        if (!$customer){
+            Customer::create($request->all());
+            $user_id = Customer::max('id');
+        }else{
+            $user_id = $customer->id;
+        }
+
         $order->update($request->all());
+        $order->user_id = $user_id;
+
+
         return redirect()->route('orders.index');
     }
 

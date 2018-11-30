@@ -82,21 +82,23 @@
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                                                aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="{{ route('orders.edit', ['id' => $order->id]) }}" data-toggle="modal"
-                                                   data-target="#edit_employee">
-                                                    <i class="fa fa-pencil m-r-5"></i>
-                                                    Редактировать
-                                                </a>
 
-                                                <form action="{{ route('orders.destroy', ['id' => $order->id]) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
+                                            <div class="dropdown-menu dropdown-menu-right">
+
+                                                {!! Form::open(['url' => route('orders.edit', ['id' => $order->id]), 'method' => 'GET']) !!}
+                                                <button class="dropdown-item">
+                                                    <i class="fa fa-pencil m-r-5"></i>
+                                                    Изменить
+                                                </button>
+                                                {!! Form::close() !!}
+
+
+                                                {!! Form::open(['url' => route('orders.destroy', ['id' => $order->id]), 'method' => 'delete']) !!}
                                                     <button class="dropdown-item">
                                                         <i class="fa fa-trash-o m-r-5"></i>
                                                         Удалить
                                                     </button>
-                                                </form>
+                                                {!! Form::close() !!}
 
 
                                             </div>
