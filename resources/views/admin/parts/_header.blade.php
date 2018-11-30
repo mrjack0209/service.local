@@ -1,7 +1,7 @@
 <div class="header">
     <div class="header-left">
         <a href="index.html" class="logo">
-            <img src="{{asset('adm/images/logo.png')}}" width="120" alt="">
+            <img src="{{asset('/front/images/service/logo-alt.png')}}" width="120" alt="">
         </a>
     </div>
     <a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>

@@ -8,6 +8,7 @@ use App\Order;
 use App\Status;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use function Sodium\add;
 
 class OrderController extends Controller
 {
@@ -29,36 +30,11 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $data = $this->request->all();
-        $customer = new Customer();
-
-        if (!$customer->NotExistsCustomer($data['phone'])){
-            $customer->fill([
-                'name' => $data['username'],
-                'phone' => $data['phone'],
-            ]);
-            $customer->save();
-            $user_id = Customer::max('id');
-        }else{
-            $user_id = $customer->NotExistsCustomer($data['phone']);
-        }
-
-        $order = new Order();
-        $order->fill([
-            'device_name' => $data['device_name'],
-            'device_id' => $data['device_id'],
-            'category_id' => $data['category'],
-            'user_id' => $user_id,
-            //'foto_id' => $data['fo'],
-            'status_id' => 1,
-            'price' => $data['price'],
-            'description' => $data['description']
-        ]);
-        $order->save();
-
-        return redirect()->route('orders');
+        dd($request->all());
+        Order::add($request->all());
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -69,7 +45,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // Test
+        Order::create($request->all());
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -80,7 +57,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -91,7 +68,9 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.pages.orders.edit', compact('order', 'categories'));
     }
 
     /**
@@ -103,7 +82,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -114,7 +93,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::destroy($id);
+        return redirect()->route('orders.index');
     }
 
 

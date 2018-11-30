@@ -8,7 +8,7 @@
                     <div class="dash-widget dash-widget5">
                         <span class="dash-widget-icon bg-info"><i class="fa fa-user-o" aria-hidden="true"></i></span>
                         <div class="dash-widget-info">
-                            <h3>15</h3>
+                            <h3>{{$customers}}</h3>
                             <span>Клиентов</span>
                         </div>
                     </div>
@@ -17,8 +17,8 @@
                     <div class="dash-widget dash-widget5">
                         <span class="dash-widget-icon bg-success"><i class="fa fa-money" aria-hidden="true"></i></span>
                         <div class="dash-widget-info">
-                            <h3>100</h3>
-                            <span>Устройств</span>
+                            <h3>{{$orders}}</h3>
+                            <span>Заказов</span>
                         </div>
                     </div>
                 </div>

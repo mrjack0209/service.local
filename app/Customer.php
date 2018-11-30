@@ -11,7 +11,32 @@ class Customer extends Model
         'name', 'phone',
     ];
 
-    public function NotExistsCustomer($phone){
+    public static function add($fields)
+    {
+        $customer = new Customer();
+        if (!$customer->ExistsCustomer($fields['phone'])){
+            $customer->fill($fields);
+            $customer->save();
+            return $customer->id;
+        }else{
+            $user_id = $customer->ExistsCustomer($fields['phone']);
+            return $user_id;
+        }
+    }
+
+    public function edit($fields)
+    {
+        $this->fill($fields);
+        $this->save();
+    }
+
+    public function renove()
+    {
+        $this->delete();
+    }
+
+
+    public function ExistsCustomer($phone){
         $customer = Customer::where('phone', $phone)->first();
         return $customer ? $customer->id : 0;
     }

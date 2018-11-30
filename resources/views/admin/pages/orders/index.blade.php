@@ -59,32 +59,47 @@
                                     <td>
                                         @switch($order->status_id)
                                             @case(1)
-                                                <span class="badge badge-danger-border">В работе</span>
+                                            <span class="badge badge-danger-border">В работе</span>
                                             @break
 
                                             @case(2)
-                                                  <span class="badge badge-success-border">Готов</span>
+                                            <span class="badge badge-success-border">Готов</span>
                                             @break
 
                                             @case(3)
-                                                <span class="badge badge-success-border">Ожидает деталь</span>
+                                            <span class="badge badge-success-border">Ожидает деталь</span>
                                             @break
 
                                             @case(4)
-                                                <span class="badge badge-success-border">Передан в другой СЦ</span>
+                                            <span class="badge badge-success-border">Передан в другой СЦ</span>
                                             @break
 
                                             @case(5)
-                                                <span class="badge badge-success-border">Ремонтопригоден</span>
+                                            <span class="badge badge-success-border">Ремонтопригоден</span>
                                             @break
                                         @endswitch
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                               aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                <a class="dropdown-item" href="{{ route('orders.edit', ['id' => $order->id]) }}" data-toggle="modal"
+                                                   data-target="#edit_employee">
+                                                    <i class="fa fa-pencil m-r-5"></i>
+                                                    Редактировать
+                                                </a>
+
+                                                <form action="{{ route('orders.destroy', ['id' => $order->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="dropdown-item">
+                                                        <i class="fa fa-trash-o m-r-5"></i>
+                                                        Удалить
+                                                    </button>
+                                                </form>
+
+
                                             </div>
                                         </div>
                                     </td>
@@ -133,80 +148,81 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form method="post" action="/admin/orders/create">
-                        @csrf
-                        <div class="form-group">
-                            <label>Номер заказа</label>
-                            <input class="form-control" type="text" value="#ORD-{{--{{$order->get_order_id()}}--}}"
-                                   readonly="" name="order_id">
-                        </div>
+                    {!! Form::open(['url' => route('orders.store')]) !!}
+                    @csrf
+                    <div class="form-group">
+                        <label>Номер заказа</label>
+                        <input class="form-control" type="text" value="#ORD-{{--{{$order->get_order_id()}}--}}"
+                               readonly="" name="order_id">
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>ФИО клиента</label>
-                                    <input class="form-control" type="text" name="username">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Телефон клиента (без "+7" и "8" например: "9611234567")</label>
-                                    <input class="form-control" type="text" name="phone">
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>ФИО клиента</label>
+                                <input class="form-control" type="text" name="name">
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Наименование устройства</label>
-                                    <input class="form-control" type="text" placeholder="Iphone X" name="device_name">
-                                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Телефон клиента (без "+7" и "8" например: "9611234567")</label>
+                                <input class="form-control" type="text" name="phone">
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Категория устройства</label>
-                                    <select class="select" name="category">
-                                        <option>Выберите категорию</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
                         </div>
-                        <div class="form-group">
-                            <label>Индентификатор устройства</label>
-                            <input class="form-control" type="text" placeholder="imei, s/n или др." name="device_id">
-                        </div>
-                        <div class="form-group">
-                            <label>Фото устройства(необязательно)</label>
-                            <div>
-                                <input class="form-control" type="file" name="photo">
-                                <small class="form-text text-muted">Максимальный размер: 50 MB. Разрешенные форматы:
-                                    jpg, gif, png.
-                                </small>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Наименование устройства</label>
+                                <input class="form-control" type="text" placeholder="Iphone X" name="device_name">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Описание неисправности</label>
-                            <textarea cols="30" rows="6" class="form-control" name="description"></textarea>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Категория устройства</label>
+                                <select class="select" name="category_id">
+                                    <option>Выберите категорию</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Цена</label>
-                            <input class="form-control" type="text" value="0.00" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label>Индентификатор устройства</label>
+                        <input class="form-control" type="text" placeholder="imei, s/n или др." name="device_id">
+                    </div>
+                    <div class="form-group">
+                        <label>Фото устройства(необязательно)</label>
+                        <div>
+                            <input class="form-control" type="file" name="photo">
+                            <small class="form-text text-muted">Максимальный размер: 50 MB. Разрешенные форматы:
+                                jpg, gif, png.
+                            </small>
                         </div>
+                    </div>
 
-                        <div class="m-t-20 text-center">
-                            <button class="btn btn-primary btn-lg">Добавить заказ</button>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label>Описание неисправности</label>
+                        <textarea cols="30" rows="6" class="form-control" name="description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Цена</label>
+                        <input class="form-control" type="text" value="0.00" name="price">
+                    </div>
+
+                    <div class="m-t-20 text-center">
+                        <button class="btn btn-primary btn-lg" type="submit">Добавить заказ</button>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
+    </div>
 @endsection
