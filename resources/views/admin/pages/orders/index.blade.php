@@ -53,7 +53,7 @@
                                     <td>{{$order->device_id}}</td>
                                     <td>{{$order->order_id}}</td>
                                     <td>{{$order->GetCustomerName($order->user_id)}}</td>
-                                    <td>+7{{$order->GetCustomerPhone($order->user_id)}}</td>
+                                    <td>{{$order->GetCustomerPhone($order->user_id)}}</td>
                                     <td>{{$order->created_at}}</td>
                                     <td>
                                         @switch($order->status_id)
@@ -137,7 +137,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Телефон клиента (без "+7" и "8" например: "9611234567")</label>
-                                <input class="form-control" type="text" name="phone">
+                                <input class="form-control" type="text" name="phone" id="phone">
                             </div>
                         </div>
                     </div>

@@ -5,8 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>ProFix - Ремонт телефонов, компьютеров, планшетов</title>
     <link href={{asset('front/animate.css/animate.min.css')}} rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('adm/css/bootstrap.min.css') }}">
     <link href={{asset('front/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css')}} rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,800,900" rel="stylesheet">
@@ -15,6 +17,7 @@
     <link href={{asset('front/pentix/css/pentix.min.css')}} rel="stylesheet" type="text/css">
     <link href={{asset('front/css/pex-theme.min.css')}} rel="stylesheet" type="text/css">
     <link href={{asset('front/css/custom.css')}} rel="stylesheet" type="text/css">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 
 <body class="body loader-loading">
@@ -393,26 +396,12 @@
 
 
 
-    </div><a href="#" class="scroll-top disabled"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <a href="#" class="scroll-top disabled"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
 
     <!-- Проверка статуса -->
-    <div class="singlepage-block collapse alt-bg" data-block="search" data-show-block-class="animation-scale-top-right" data-hide-block-class="animation-unscale-top-right"><a href="#" class="close-link" data-close-block><i class="fas fa-times" aria-hidden="true"></i></a>
-        <div class="pos-v-center col-12">
-            <div class="container">
-                <div class="row cols-md rows-md">
-                    <div class="lg-col-9 md-col-8 sm-col-12">
-                        <div class="field-group">
-                            <div class="field-wrap"><input class="field-control" name="search" placeholder="Укажите Ваш номер телефона" required="required"> <span class="field-back"></span></div>
-                        </div>
-                    </div>
-                    <div class="lg-col-3 md-col-4 sm-col-6"><button class="btn btns-white-bordered text-upper" type="submit">Проверить</button></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('front.parts.checStatus')
      <!-- /Проверка статуса -->
-
 
 	<!--
     <div class="loader-block">
@@ -422,50 +411,37 @@
 -->
 
 	<!-- FOOTER -->
-    <footer class="footer">
-        <div class="container only-xs-text-justify-center">
-            <div class="solid-section">
-                <div class="row cols-md">
-                    <div class="sm-col-3">
-                        <div class="footer-logo"><img src={{asset('front/images/service/logo-alt.png')}} alt="ProFix"></div>
-                        <div class="footer-text sm-text-justify">Ремонт цивфрой техники в г. Фатеж</div>
-                    </div>
-                    <div class="sm-col-8 sm-push-1">
-                        <div class="row cols-md">
-                            <div class="sm-col-4">
-                                <div class="footer-title alt-color text-upper">Адрес</div>
-                                <div class="footer-text">г. Фатеж, ул К.Маркса,7</div>
-                            </div>
-                            <div class="sm-col-4">
-                                <div class="footer-title alt-color text-upper">Контакты</div>
-                                <div class="footer-text">+7(123) 456-78-90<br>test@test.com</div>
-                            </div>
-                            <div class="sm-col-4">
-                                <div class="footer-title alt-color text-upper">Мы в соцсетях</div>
-                                <div class="cols-list socials cols-sm inline-block"><a href="#" class="list-item"><i class="fab fa-facebook-f" aria-hidden="true"></i></a> <a href="#" class="list-item"><i class="fab fa-twitter" aria-hidden="true"></i></a> <a href="#" class="list-item"><i class="fab fa-pinterest" aria-hidden="true"></i></a>                                    <a href="#" class="list-item"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a> <a href="#" class="list-item"><i class="fab fa-dribbble" aria-hidden="true"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyrights text-center top-separator ins-md">&copy; 2018 <b>ProFix</b>. Все права защищены</div>
-        </div>
-    </footer>
+    @include('front.parts.footer')
     <!-- FOOTER -->
 
-	<!-- СКРИПТЫ -->
-    <script src={{asset('front/js/jquery-1.12.4.min.js')}}></script>
-    <script src={{asset('front/parallax.js/parallax.min.js')}}></script>
-    <script src={{asset('front/flexslider/jquery.flexslider-min.js')}}></script>
-    <script src={{asset('front/owlcarousel2/dist/owl.carousel.min.js')}}></script>
-    <script src={{asset('front/shuffle/dist/shuffle.min.js')}}></script>
-    <script src={{asset('front/waypoints/lib/jquery.waypoints.min.js')}}></script>
-    <script src={{asset('front/chosen/chosen.jquery.min.js')}}></script>
-    <script src={{asset('front/jquery-ui-custom/jquery-ui.min.js')}} type="text/javascript"></script>
-    <script src={{asset('front/pentix/js/pentix.min.js')}} type="text/javascript"></script>
-    <script src={{asset('front/js/script.js')}} type="text/javascript"></script>
-    <script async defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDkd8xUeaoalCOsviSyrCDqIqVka0aF_I&callback=initMap"></script>
-    <!-- СКРИПТЫ -->
+    @include('front.parts.scripts')
+
+    <script>
+        $(document).ready(function(){
+            $('#Check').click(function(e){
+                e.preventDefault();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: 'get',
+                    url: "/checkStatus/" + ($('#phone').val()) + "/show",
+                    dataType: 'json',
+                    success: function(result){
+                        $('#checkResult').show();
+                        $('#device_name').html(result.success.device_name);
+                        $('#device_id').html(result.success.device_id);
+                        $('#date').html(result.success.created_at);
+                        $('#status').html(result.success.name);
+                        console.log(result.success);
+                    }});
+            });
+        });
+    </script>
 
 
 </body>

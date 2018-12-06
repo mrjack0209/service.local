@@ -12,9 +12,20 @@
 */
 
 // FRONT
-Route::get('/', function () {
-    return view('front.index');
+Route::view('/', 'front.index');
+Route::get('/checkStatus/{phone}/show', 'StatusCheckController');
+
+Route::get('/test/{phone}', function ($phone){
+    $res = DB::table('orders')
+        ->join('customers', 'orders.user_id', '=', 'customers.id')
+        ->join('statuses', 'status_id', '=', 'statuses.id')
+        ->select('orders.device_name', 'orders.device_id', 'statuses.name', 'orders.created_at')
+        ->where('customers.phone', $phone)
+        ->first();
+
+    $res->device_id = '';
 });
+
 
 
 //ADMIN

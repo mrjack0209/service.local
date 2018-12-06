@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 
 class Order extends Model
@@ -13,10 +14,8 @@ class Order extends Model
 
     public static function add($fields)
     {
-        $order = new static;
-        $order->fill($fields);
-        $order->user_id = Customer::add($fields);
-        $order->save();
+        $fields['user_id'] = Customer::add($fields);
+        $order = static::create($fields);
         return $order;
     }
 
@@ -39,5 +38,15 @@ class Order extends Model
     public function GetCustomerPhone($customer_id)
     {
         return Customer::find($customer_id)->getPhone();
+    }
+
+    public function scopeStatus($query, $phone)
+    {
+        return DB::table('orders')
+            ->join('customers', 'orders.user_id', '=', 'customers.id')
+            ->join('statuses', 'status_id', '=', 'statuses.id')
+            ->select('orders.device_name', 'orders.device_id', 'statuses.name', 'orders.created_at')
+            ->where('customers.phone', $phone)
+            ->first();
     }
 }

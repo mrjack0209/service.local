@@ -3,25 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 
 class Customer extends Model
 {
     protected $fillable = [
-        'name', 'phone',
+        'username', 'phone',
     ];
 
     public static function add($fields)
     {
-        $customer = new Customer();
-        if (!$customer->ExistsCustomer($fields['phone'])){
-            $customer->fill($fields);
-            $customer->save();
-            return $customer->id;
-        }else{
-            $user_id = $customer->ExistsCustomer($fields['phone']);
-            return $user_id;
+        if (!$customer = static::where('phone', $fields['phone'])->exists()) {
+            return static::create($fields)->id;
         }
+
+        return static::where('phone', $fields['phone'])->first()->id;
     }
 
     public function edit($fields)
@@ -30,16 +27,11 @@ class Customer extends Model
         $this->save();
     }
 
-    public function renove()
+    public function remove()
     {
         $this->delete();
     }
 
-
-    public function ExistsCustomer($phone){
-        $customer = Customer::where('phone', $phone)->first();
-        return $customer ? $customer->id : 0;
-    }
 
     public function getPhone(){
         return $this->phone;
@@ -48,4 +40,5 @@ class Customer extends Model
     public function getName(){
         return $this->name;
     }
+
 }

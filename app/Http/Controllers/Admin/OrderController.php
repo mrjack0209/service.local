@@ -32,9 +32,7 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
-        dd($request->all());
-        Order::add($request->all());
-        return redirect()->route('orders.index');
+
     }
 
     /**
@@ -45,7 +43,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        Order::create($request->all());
+        Order::add($request->all());
         return redirect()->route('orders.index');
     }
 

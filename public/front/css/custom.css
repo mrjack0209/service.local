@@ -19,3 +19,10 @@
         font-size: 1.3em;
     }
  }
+
+div#checkResult{
+    display: none;
+    margin-top: 30px;
+    color: black;
+    font-size: 1.1rem;
+}

@@ -30,6 +30,15 @@
 <div class="sidebar-overlay" data-reff=""></div>
 
 @include('admin.parts._scripts')
+<script>
+    $('input[type="checkbox"]').on('change', function() {
+        $('input[type="checkbox"]').not(this).prop('checked', false);
+    });
+
+    $('#phone').val(function(i, text) {
+        return text.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '($1)-$2-$3-$4');
+    });
+</script>
 </body>
 
 </html>
